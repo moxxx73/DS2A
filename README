@@ -1,0 +1,41 @@
+LibDS2A: Data Structures And Algorithms
+---------------------------------------
+ds2a is a utility library providing various data structures
+and algorithms.
+
+The lack of any real documentation is on purpose, I don't expect any to actually
+need nor want to use this library. I just want the current version on github
+
+Supported data structures:
+	+ Generic linked lists (+ Double linked lists)
+
+Supported algorithms:
+	+ Merge Sort (Generic, double linked lists)
+	+ Siphash-2-4
+
+### Generic Linked Lists
+Generic linked lists are implemented as a header and user-defined data:
+
+	+-------------------------+-------------------------+
+	| 00 01 02 03 04 05 06 07 | 08 09 10 11 12 13 14 15 |
+	+-------------------------+-------------------------+
+	|     Forward Pointer     |     User Data Length    | <--- Node Header
+	+-------------------------+-------------------------+
+	|             Variable Length User Data             |
+	|                       ....                        |
+	+---------------------------------------------------+
+
+The forward pointer is always the first 8 bytes of a node header, regardless of whether
+the list is a double linked list or not. if so, the backward pointer follows it, then the
+user data length.
+
+The merge function operates on a callback function supplied as an argument. This function
+is user defined and must return either -1 or 1 and expects two nodes to be compared:
+
+If the callback(left, right) function returns:
+
+	 1: the right node is inserted before the left node (left->bk = right)
+	-1: the right node is inserted after the left node (left->fw = right)
+
+any other value returned is ignored for now (although this may change).
+

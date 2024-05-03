@@ -39,43 +39,43 @@ void *msort_dlist(void *dlist_hd, int (*callback)(void *, void *)){
 						switch(callback(left, right)){
 							case -1:
 								fw_save = right->fw;
-                    			bk_save = right->bk;
-                    			if(right->fw) right->fw->bk = right->bk;
-                    			if(right->bk) right->bk->fw = right->fw;
+                    						bk_save = right->bk;
+                    						if(right->fw) right->fw->bk = right->bk;
+                    						if(right->bk) right->bk->fw = right->fw;
 
-                    			left_save = left->fw;
-                    			left->fw = right;
-                    			left->fw->bk = left;
-                    			left->fw->fw = left_save;
-                    			if(left->fw->fw) left->fw->fw->bk = left->fw;
+                    						left_save = left->fw;
+                    						left->fw = right;
+                    						left->fw->bk = left;
+                    						left->fw->fw = left_save;
+                    						if(left->fw->fw) left->fw->fw->bk = left->fw;
 
-                    			if(split_nodes[i+1] == right) split_nodes[i+1] = fw_save;
-                    			if(!split_nodes[i+1]){
-                        			memmove(&split_nodes[i+1], &split_nodes[i+2], (sizeof(void *)*(dlist_len-i-1)));
-                        			dlist_len--;
-                    			}
+                    						if(split_nodes[i+1] == right) split_nodes[i+1] = fw_save;
+                    						if(!split_nodes[i+1]){
+                        						memmove(&split_nodes[i+1], &split_nodes[i+2], (sizeof(void *)*(dlist_len-i-1)));
+                        						dlist_len--;
+                    						}
 								right = (bk_save) ? bk_save : fw_save;
 								break;
 							case 1:
 
 								fw_save = right->fw;
-                    			bk_save = right->bk;
-                    			if(right->bk) right->bk->fw = right->fw;
-                    			if(right->fw) right->fw->bk = right->bk;
+                    						bk_save = right->bk;
+              				      			if(right->bk) right->bk->fw = right->fw;
+                    						if(right->fw) right->fw->bk = right->bk;
                     
-                    			left_save = left->bk;
-                    			left->bk = right;
-                    			left->bk->fw = left;
-                    			left->bk->bk = left_save;
-                			    if(left->bk->bk) left->bk->bk->fw = left->bk;
+                    						left_save = left->bk;
+                    						left->bk = right;
+                    						left->bk->fw = left;
+                    						left->bk->bk = left_save;
+                			    			if(left->bk->bk) left->bk->bk->fw = left->bk;
                     
-    			                if(split_nodes[i] == left) split_nodes[i] = left->bk;
+    			                			if(split_nodes[i] == left) split_nodes[i] = left->bk;
 
-                    			if(split_nodes[i+1] == right) split_nodes[i+1] = fw_save;
-                    			if(!split_nodes[i+1]){
-                        			memmove(&split_nodes[i+1], &split_nodes[i+2], (sizeof(void *)*(dlist_len-i-1)));
-                        			dlist_len--;
-                    			}
+                    						if(split_nodes[i+1] == right) split_nodes[i+1] = fw_save;
+                    						if(!split_nodes[i+1]){
+                        						memmove(&split_nodes[i+1], &split_nodes[i+2], (sizeof(void *)*(dlist_len-i-1)));
+                        						dlist_len--;
+                    						}
 								right = (bk_save) ? bk_save : fw_save;
 								break;
 							default:
